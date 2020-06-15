@@ -53,3 +53,4 @@ fabric.properties
 out
 gen
 vendor
+composer.lock
