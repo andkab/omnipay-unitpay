@@ -14,7 +14,6 @@ class PurchaseRequest extends AbstractRequest
         $data['sum'] = $this->getAmount();
         $data['desc'] = $this->getDescription();
         $data['currency'] = $this->getCurrency();
-        $data['publicKey'] = $this->getPublicKey();
         $data['signature'] = $this->generateSignature($data['account'], $data['currency'], $data['desc'], $data['sum'], $this->getSecretKey());
 
         return $data;
@@ -22,7 +21,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new PurchaseResponse($this, $data, $this->getEndpoint());
+        return $this->response = new PurchaseResponse($this, $data, $this->getEndpoint(), $this->getPublicKey());
     }
 
     public function generateSignature($account, $currency, $desc, $sum, $secretKey)

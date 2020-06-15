@@ -10,11 +10,13 @@ use Omnipay\Common\Message\RequestInterface;
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     protected $redirectUrl;
+    protected $publicKey;
 
-    public function __construct(RequestInterface $request, $data, $redirectUrl)
+    public function __construct(RequestInterface $request, $data, $redirectUrl, $publicKey)
     {
         parent::__construct($request, $data);
         $this->redirectUrl = $redirectUrl;
+        $this->publicKey = $publicKey;
     }
 
     public function isSuccessful()
@@ -29,12 +31,12 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getRedirectUrl()
     {
-        return $this->getRequest()->getEndpoint().'/'.$this->data['publicKey'];
+        return $this->getRequest()->getEndpoint(). '/'. $this->publicKey;
     }
 
     public function getRedirectMethod()
     {
-        return 'POST';
+        return 'GET';
     }
 
     public function getRedirectData()
