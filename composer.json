@@ -11,7 +11,7 @@
         "unitpay.ru",
         "purchase"
     ],
-    "license": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Aleksandr Zhiliaev",
@@ -21,6 +21,7 @@
     "autoload": {
         "psr-4": { "Omnipay\\Unitpay\\" : "src/" }
     },
+    "minimum-stability": "dev",
     "require": {
         "omnipay/common": "3.0.3"
     }
