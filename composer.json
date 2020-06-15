@@ -23,6 +23,6 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "omnipay/common": "3.0.3"
+        "omnipay/common": "3.0"
     }
 }
