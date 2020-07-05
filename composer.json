@@ -1,5 +1,5 @@
 {
-    "name": "leonardjke/omnipay-unitpay",
+    "name": "andkab/omnipay-unitpay",
     "type": "library",
     "description": "Unitpay gateway for Omnipay payment processing library",
     "keywords": [
@@ -16,6 +16,10 @@
         {
             "name": "Aleksandr Zhiliaev",
             "email": "sassoftinc@gmail.com"
+        },
+        {
+            "name": "Andrew Frost",
+            "email": "andkab2012@gmail.com"
         }
     ],
     "autoload": {
