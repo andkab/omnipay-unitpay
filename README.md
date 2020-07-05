@@ -1,8 +1,4 @@
 # omnipay-unitpay
-[![Build Status](https://travis-ci.org/aleksandrzhiliaev/omnipay-unitpay.svg?branch=master)](https://travis-ci.org/aleksandrzhiliaev/omnipay-unitpay)
-[![Latest Stable Version](https://poser.pugx.org/aleksandrzhiliaev/omnipay-unitpay/v/stable)](https://packagist.org/packages/aleksandrzhiliaev/omnipay-unitpay)
-[![Total Downloads](https://poser.pugx.org/aleksandrzhiliaev/omnipay-unitpay/downloads)](https://packagist.org/packages/aleksandrzhiliaev/omnipay-unitpay)
-
 Unitpay gateway for [Omnipay](https://github.com/thephpleague/omnipay) payment processing library.
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
@@ -16,7 +12,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "leonardjke/omnipay-unitpay": "*"
+        "andkab/omnipay-unitpay": "*"
     }
 }
 ```
@@ -33,7 +29,7 @@ The following gateways are provided by this package:
 * Unitpay.ru
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
-repository. See also the [Unitpay Documentation](http://help.unitpay.ru)
+repository. See also the [Unitpay Documentation](https://help.unitpay.ru)
 
 ## Example
 1. Purchase:
@@ -45,36 +41,17 @@ $gateway->setSecretKey('');
 
 $response = $gateway->purchase([
        'amount' => '0.1',
-       'currency' => 'USD',
+       'currency' => 'RUB',
        'transactionId' => time(),
        'description' => 'Order # 123',
         ])->send();
 
-if ($response->isSuccessful()) {
-   // success
-} elseif ($response->isRedirect()) {
-
-   # Generate form to do payment
-   $hiddenFields = '';
-   foreach ($response->getRedirectData() as $key => $value) {
-       $hiddenFields .= sprintf(
-          '<input type="hidden" name="%1$s" value="%2$s" />',
-           htmlentities($key, ENT_QUOTES, 'UTF-8', false),
-           htmlentities($value, ENT_QUOTES, 'UTF-8', false)
-          )."\n";
-   }
-
-   $output = '<form action="%1$s" method="post"> %2$s <input type="submit" value="Purchase" /></form>';
-   $output = sprintf(
-      $output,
-      htmlentities($response->getRedirectUrl(), ENT_QUOTES, 'UTF-8', false),
-      $hiddenFields
-   );
-   echo $output;
-   # End of generating form
+if ($response->isRedirect()) {
+    $response->redirect();
 } else {
    echo $response->getMessage();
 }
+
 ```
 2. Validate webhook
 ```php
@@ -84,7 +61,6 @@ try {
     if ($success) {
        $transactionId = $response->getTransactionId();
        $amount = $response->getAmount();
-       $currency = $response->getCurrency();
        // success 
     }
 } catch (\Exception $e) {
